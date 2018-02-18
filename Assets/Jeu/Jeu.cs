@@ -54,7 +54,8 @@ public class Jeu : MonoBehaviour {
 		
 	public void ActiverPion(PionUI pion) {
 		PionCourant = pion;
-        destinationsPossibles = new Gps(plateau).DestinationsDepuis(pion.X, pion.Y);
+        destinationsPossibles = new Gps(plateau)
+            .DestinationsDepuis(pion.X, pion.Y, pionCourant == Pion.Bobail);
 	}
 
 	public bool EstActif(PionUI pion) {

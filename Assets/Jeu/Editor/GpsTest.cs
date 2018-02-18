@@ -59,4 +59,41 @@ public class GpsTest {
             destinationsPossibles,
             new Coordonnees { X = 3, Y = 2 });
     }
+
+    [Test]
+    public void LeBobailNeSeDeplaceQueDeUn() {
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(0, 0, true),
+            new Coordonnees { X = 1, Y = 0 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(4, 0, true),
+            new Coordonnees { X = 3, Y = 0 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(2, 2, true),
+            new Coordonnees { X = 2, Y = 1 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(2, 2, true),
+            new Coordonnees { X = 2, Y = 3 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(0, 2, true),
+            new Coordonnees { X = 1, Y = 3 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(0, 2, true),
+            new Coordonnees { X = 1, Y = 1 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(4, 2, true),
+            new Coordonnees { X = 3, Y = 1 }
+        );
+        CollectionAssert.Contains(
+            gps.DestinationsDepuis(4, 2, true),
+            new Coordonnees { X = 3, Y = 3 }
+        );
+    }
+
 }
