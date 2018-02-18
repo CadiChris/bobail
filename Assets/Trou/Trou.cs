@@ -30,10 +30,8 @@ public class Trou : MonoBehaviour {
 		if (!jeu.PretADeplacer ())
 			return;
 
-		if (jeu.TrouEstOccupe (X, Y))
-			return;
-
-		jeu.DeplacerActif (this);
+		if (jeu.ActifPeutAtteindre (X, Y))
+            jeu.DeplacerActif(this);
 	}
 
     void Allumer() {
