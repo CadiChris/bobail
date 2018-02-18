@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PionUI : MonoBehaviour {
 
@@ -9,11 +10,9 @@ public class PionUI : MonoBehaviour {
 	public Pion Pion;
 
 	private Jeu jeu;
-	const float Y_BAS = 4f;
-	const float Y_HAUT = 8f;
 
 	void Start () {
-		jeu = GameObject.FindObjectOfType<Jeu> ();
+		jeu = FindObjectOfType<Jeu>();
 	}
 	
 	void Update () {
@@ -24,17 +23,11 @@ public class PionUI : MonoBehaviour {
 	}
 
 	void Lever() {
-		transform.position = new Vector3 (
-			transform.position.x,
-			Y_HAUT,
-			transform.position.z);
+		transform.DOLocalMoveY (4f, .1f);
 	}
 
 	void Baisser() {
-		transform.position = new Vector3 (
-			transform.position.x, 
-			Y_BAS,
-			transform.position.z);
+        transform.DOLocalMoveY(0f, .1f);
 	}
 
 	void OnMouseDown() {
@@ -43,11 +36,16 @@ public class PionUI : MonoBehaviour {
 		
 		jeu.ActiverPion (this);
 	}
-
+        
 	public void DeplacerVers(Trou destination) {
-		transform.position = new Vector3 (
-			destination.transform.position.x, 
-			Y_BAS, 
-			destination.transform.position.z); 
+        Vector3 vecteurDestination = new Vector3(
+            destination.transform.position.x,
+            transform.position.y,
+            destination.transform.position.z);
+
+        transform.DOMove(vecteurDestination, .1f);
+
+        X = destination.X;
+        Y = destination.Y;
 	}
 }

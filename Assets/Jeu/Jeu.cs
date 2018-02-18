@@ -97,17 +97,30 @@ class Plateau {
 	};
 
 	public Pion PionSur(int x, int y) {
-		return plateau [y, x];
+		return plateau [x, y];
 	}
 
 	public void Deplacer(int xDepart, int yDepart, int xArrivee, int yArrivee) {
-		plateau [yArrivee, xArrivee] = plateau [yDepart, xDepart];
-		plateau [yDepart, xDepart] = Pion.Vide;
+		plateau [xArrivee, yArrivee] = plateau [xDepart, yDepart];
+		plateau [xDepart, yDepart] = Pion.Vide;
 	}
 
 	public Pion Vainqueur() {
 		return Pion.Vide;
 	}
+
+    public override string ToString(){
+        string representation = "";
+        for (int x = plateau.GetLength(0)-1; x >= 0; x--)
+        {
+            for (int y = 0; y < plateau.GetLength(1); y++)
+                representation += ("("+x+","+y+") " + plateau[x, y]).PadRight(18,' ');
+
+            representation += "\r\n";
+        }
+       
+        return representation;
+    }
 }
 
 public enum Pion { A, B, Vide, Bobail }

@@ -10,7 +10,7 @@ public class Trou : MonoBehaviour {
 	Jeu jeu;
 
 	void Start () {
-		jeu = GameObject.FindObjectOfType<Jeu> ();	
+		jeu = FindObjectOfType<Jeu>();	
 	}
 	
 	void Update () {
