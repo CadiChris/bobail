@@ -9,28 +9,51 @@ public class PionUI : MonoBehaviour {
 	public int Y;
 	public Pion Pion;
 
-	private Jeu jeu;
+	Jeu jeu;
+    bool estLeve;
+    bool mouseOver;
+    float hauteurDepart;
 
 	void Start () {
 		jeu = FindObjectOfType<Jeu>();
+        estLeve = false;
+        mouseOver = false;
+        hauteurDepart = transform.position.y;
 	}
 	
 	void Update () {
-		if (jeu.EstActif (this))
+		if (jeu.EstActif (this) && !estLeve)
 			Lever ();
-		else
+        if (!jeu.EstActif(this) && estLeve && !mouseOver) 
 			Baisser ();
 	}
 
-	void Lever() {
-		transform.DOLocalMoveY (4f, .1f);
+	void Lever(float vitesse = .1f) {
+		transform.DOMoveY(hauteurDepart + 1f, vitesse);
+        estLeve = true;
 	}
 
 	void Baisser() {
-        transform.DOLocalMoveY(0f, .1f);
+        transform.DOMoveY(hauteurDepart, .1f);
+        estLeve = false;
 	}
 
-	void OnMouseDown() {
+    private void OnMouseEnter() {
+        if (!jeu.CestMonTour(Pion))
+            return;
+
+        if (estLeve) return;
+        
+        mouseOver = true;
+        if (!estLeve) Lever();
+    }
+
+    private void OnMouseExit () {
+        mouseOver = false;
+        if(estLeve && !jeu.EstActif(this)) Baisser();
+    }
+
+    void OnMouseDown() {
 		if (!jeu.CestMonTour (Pion))
 			return;
 		
@@ -38,14 +61,18 @@ public class PionUI : MonoBehaviour {
 	}
         
 	public void DeplacerVers(Trou destination) {
-        Vector3 vecteurDestination = new Vector3(
+        Vector3 arrivee = new Vector3(
             destination.transform.position.x,
-            transform.position.y,
+            hauteurDepart,
             destination.transform.position.z);
 
-        transform.DOMove(vecteurDestination, .1f);
+        transform.position = arrivee;
+        Arrivee(destination);
+	}
 
+    void Arrivee(Trou destination) {
         X = destination.X;
         Y = destination.Y;
-	}
+        estLeve = false;
+    }
 }
