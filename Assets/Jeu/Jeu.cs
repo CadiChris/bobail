@@ -74,30 +74,21 @@ public class Jeu : MonoBehaviour {
 }
 
 class Plateau {
-	TrouBack[,] plateau = new TrouBack[,] {
-		{new TrouBack(Pion.A), new TrouBack(Pion.A), new TrouBack(Pion.A), new TrouBack(Pion.A), new TrouBack(Pion.A)},
-		{new TrouBack(), new TrouBack(), new TrouBack(), new TrouBack(), new TrouBack()},
-		{new TrouBack(), new TrouBack(), new TrouBack(Pion.Bobail), new TrouBack(), new TrouBack()},
-		{new TrouBack(), new TrouBack(), new TrouBack(), new TrouBack(), new TrouBack()},
-		{new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.A)},
+	Pion[,] plateau = new Pion[,] {
+		{Pion.A, 	Pion.A, 	Pion.A, 		Pion.A, 	Pion.A},
+		{Pion.Vide, Pion.Vide, 	Pion.Vide, 		Pion.Vide, 	Pion.Vide},
+		{Pion.Vide, Pion.Vide, 	Pion.Bobail, 	Pion.Vide, 	Pion.Vide},
+		{Pion.Vide, Pion.Vide, 	Pion.Vide, 		Pion.Vide, 	Pion.Vide},
+		{Pion.B, 	Pion.B, 	Pion.B, 		Pion.B, 	Pion.B},
 	};
 
 	public Pion PionSur(int x, int y) {
-		return plateau [y, x].Pion;
+		return plateau [y, x];
 	}
 
 	public void Deplacer(int xDepart, int yDepart, int xArrivee, int yArrivee) {
 		plateau [yArrivee, xArrivee] = plateau [yDepart, xDepart];
-		plateau [yDepart, xDepart] = new TrouBack();
-	}
-}
-
-class TrouBack {
-	public readonly Pion Pion;
-	public TrouBack(Pion pion) {
-		Pion = pion;
-	}
-	public TrouBack() : this(Pion.Vide) {
+		plateau [yDepart, xDepart] = Pion.Vide;
 	}
 }
 
