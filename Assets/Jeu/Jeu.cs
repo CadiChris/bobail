@@ -62,9 +62,14 @@ public class Jeu : MonoBehaviour {
 	}
 
 	public void DeplacerActif(Trou destination) {
+		plateau.Deplacer (PionCourant.X, PionCourant.Y, destination.X, destination.Y);
 		PionCourant.DeplacerVers (destination);
 		PionCourant = null;
 		TourSuivant ();
+	}
+
+	public bool TrouEstOccupe(int x, int y) {
+		return plateau.PionSur(x, y) != Pion.Vide;
 	}
 }
 
@@ -77,6 +82,14 @@ class Plateau {
 		{new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.B), new TrouBack(Pion.A)},
 	};
 
+	public Pion PionSur(int x, int y) {
+		return plateau [y, x].Pion;
+	}
+
+	public void Deplacer(int xDepart, int yDepart, int xArrivee, int yArrivee) {
+		plateau [yArrivee, xArrivee] = plateau [yDepart, xDepart];
+		plateau [yDepart, xDepart] = new TrouBack();
+	}
 }
 
 class TrouBack {

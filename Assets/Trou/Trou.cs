@@ -21,6 +21,9 @@ public class Trou : MonoBehaviour {
 		if (!jeu.PretADeplacer ())
 			return;
 
+		if (jeu.TrouEstOccupe (X, Y))
+			return;
+
 		jeu.DeplacerActif (this);
 	}
 }
