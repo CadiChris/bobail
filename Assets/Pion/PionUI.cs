@@ -28,13 +28,15 @@ public class PionUI : MonoBehaviour {
 			Baisser ();
 	}
 
-	void Lever(float vitesse = .1f) {
-		transform.DOMoveY(hauteurDepart + 1f, vitesse);
+    const float vitesseDeLevage = .05f;
+    const float hauteurDeLevage = 1.5f;
+	void Lever(float vitesse = vitesseDeLevage) {
+		transform.DOMoveY(hauteurDepart + hauteurDeLevage, vitesse);
         estLeve = true;
 	}
 
 	void Baisser() {
-        transform.DOMoveY(hauteurDepart, .1f);
+        transform.DOMoveY(hauteurDepart, vitesseDeLevage);
         estLeve = false;
 	}
 
