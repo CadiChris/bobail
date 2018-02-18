@@ -16,7 +16,8 @@ public class Gps {
 
         var destinations = new List<Coordonnees>{
             VersLeHaut(x, y),
-            VersLeBas(x, y)
+            VersLeBas(x, y),
+            VersLaGauche(x, y)
         };
 
         var depart = new Coordonnees { X = x, Y = y };
@@ -44,6 +45,16 @@ public class Gps {
             else if (x != xDepart) break;
         }
         return new Coordonnees { X = xArrivee, Y = yDepart };
+    }
+
+    public Coordonnees VersLaGauche(int xDepart, int yDepart){
+        int yArrivee = yDepart;
+        for (int y = yDepart; y >= 0; y--) {
+            var peutAvancer = _plateau.PionSur(xDepart, y) == Pion.Vide;
+            if (peutAvancer) yArrivee = y;
+            else if (y != yDepart) break;
+        }
+        return new Coordonnees { X = xDepart, Y = yArrivee };
     }
 }
 

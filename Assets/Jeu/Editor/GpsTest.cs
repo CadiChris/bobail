@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GpsTest {
 
@@ -14,20 +15,16 @@ public class GpsTest {
     }
 
     [Test]
-    public void CalculeVersLeHaut() {
-        var destinationsPossibles = gps.DestinationsDepuis(0, 0);
+    public void CalculeA360Degres() {
+        var destinationsPossibles = gps.DestinationsDepuis(2, 2);
 
-        CollectionAssert.Contains(
-            destinationsPossibles,
-            new Coordonnees { X = 3, Y = 0 });
-    }
-
-    [Test]
-    public void CalculeVersLeBas() {
-        var destinationsPossibles = gps.DestinationsDepuis(4, 0);
-        CollectionAssert.Contains(
-            destinationsPossibles,
-            new Coordonnees { X = 1, Y = 0 }
+        CollectionAssert.AreEquivalent(
+            new List<Coordonnees> {
+                new Coordonnees { X = 3, Y = 2 },
+                new Coordonnees { X = 1, Y = 2 },
+                new Coordonnees { X = 2, Y = 0 },
+            },
+            destinationsPossibles
         );
     }
 
