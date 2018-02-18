@@ -85,18 +85,22 @@ public class Jeu : MonoBehaviour {
 	public bool TrouEstOccupe(int x, int y) {
 		return plateau.PionSur(x, y) != Pion.Vide;
 	}
+
+    public bool ActifPeutAtteindre(int x, int y) {
+        return x == 1 && y == 1 && PionCourant != null;
+    }
 }
 
 class Plateau {
-	Pion[,] plateau = new Pion[,] {
-		{Pion.A, 	Pion.A, 	Pion.A, 		Pion.A, 	Pion.A},
-		{Pion.Vide, Pion.Vide, 	Pion.Vide, 		Pion.Vide, 	Pion.Vide},
-		{Pion.Vide, Pion.Vide, 	Pion.Bobail, 	Pion.Vide, 	Pion.Vide},
-		{Pion.Vide, Pion.Vide, 	Pion.Vide, 		Pion.Vide, 	Pion.Vide},
-		{Pion.B, 	Pion.B, 	Pion.B, 		Pion.B, 	Pion.B},
-	};
+    readonly Pion[,] plateau = new Pion[,] {
+        {Pion.A,    Pion.A,     Pion.A,         Pion.A,     Pion.A},
+        {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
+        {Pion.Vide, Pion.Vide,  Pion.Bobail,    Pion.Vide,  Pion.Vide},
+        {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
+        {Pion.B,    Pion.B,     Pion.B,         Pion.B,     Pion.B},
+    };
 
-	public Pion PionSur(int x, int y) {
+    public Pion PionSur(int x, int y) {
 		return plateau [x, y];
 	}
 

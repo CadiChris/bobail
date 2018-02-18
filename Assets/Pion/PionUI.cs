@@ -20,7 +20,7 @@ public class PionUI : MonoBehaviour {
         mouseOver = false;
         hauteurDepart = transform.position.y;
 	}
-	
+
 	void Update () {
 		if (jeu.EstActif (this) && !estLeve)
 			Lever ();
