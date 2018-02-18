@@ -9,6 +9,7 @@ public class Jeu : MonoBehaviour {
 	Pion pionCourant;
 	Queue joueurs;
 	Queue mouvements;
+    List<Coordonnees> destinationsPossibles;
 	public string JoueurCourant;
 	public PionUI PionCourant;
 
@@ -22,6 +23,7 @@ public class Jeu : MonoBehaviour {
 		mouvements.Enqueue (Pion.A);
 		mouvements.Enqueue (Pion.Bobail);
 		mouvements.Enqueue (Pion.B);
+        destinationsPossibles = new List<Coordonnees>();
 
 		PremierTour ();
 	}
@@ -52,6 +54,7 @@ public class Jeu : MonoBehaviour {
 		
 	public void ActiverPion(PionUI pion) {
 		PionCourant = pion;
+        destinationsPossibles = new Gps(plateau).DestinationsDepuis(pion.X, pion.Y);
 	}
 
 	public bool EstActif(PionUI pion) {
@@ -87,18 +90,23 @@ public class Jeu : MonoBehaviour {
 	}
 
     public bool ActifPeutAtteindre(int x, int y) {
-        return x == 1 && y == 1 && PionCourant != null;
+        return PionCourant != null && 
+            destinationsPossibles.Contains(new Coordonnees { X = x, Y = y });
     }
 }
 
-class Plateau {
-    readonly Pion[,] plateau = new Pion[,] {
-        {Pion.A,    Pion.A,     Pion.A,         Pion.A,     Pion.A},
-        {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
-        {Pion.Vide, Pion.Vide,  Pion.Bobail,    Pion.Vide,  Pion.Vide},
-        {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
-        {Pion.B,    Pion.B,     Pion.B,         Pion.B,     Pion.B},
-    };
+public class Plateau {
+    private static Pion[,] Depart() {
+        return new Pion[,] {
+            {Pion.A,    Pion.A,     Pion.A,         Pion.A,     Pion.A},
+            {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
+            {Pion.Vide, Pion.Vide,  Pion.Bobail,    Pion.Vide,  Pion.Vide},
+            {Pion.Vide, Pion.Vide,  Pion.Vide,      Pion.Vide,  Pion.Vide},
+            {Pion.B,    Pion.B,     Pion.B,         Pion.B,     Pion.B},
+        };
+    }
+
+    readonly Pion[,] plateau = Depart();
 
     public Pion PionSur(int x, int y) {
 		return plateau [x, y];
