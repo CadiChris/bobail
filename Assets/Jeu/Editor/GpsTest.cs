@@ -6,9 +6,15 @@ using System.Collections;
 
 public class GpsTest {
 
+    Gps gps;
+
+    [SetUp]
+    public void AvantChaqueTest() {
+        gps = new Gps(new Plateau());
+    }
+
     [Test]
-    public void CalculeLeToutDroit() {
-        var gps = new Gps(new Plateau());
+    public void CalculeVersLeHaut() {
         var destinationsPossibles = gps.DestinationsDepuis(0, 0);
 
         CollectionAssert.Contains(
@@ -17,8 +23,16 @@ public class GpsTest {
     }
 
     [Test]
+    public void CalculeVersLeBas() {
+        var destinationsPossibles = gps.DestinationsDepuis(4, 0);
+        CollectionAssert.Contains(
+            destinationsPossibles,
+            new Coordonnees { X = 1, Y = 0 }
+        );
+    }
+
+    [Test]
     public void NeSortPasDuPlateau() {
-        var gps = new Gps(new Plateau());
         var destinationsPossibles = gps.DestinationsDepuis(4, 0);
 
         CollectionAssert.DoesNotContain(
@@ -28,7 +42,6 @@ public class GpsTest {
 
     [Test]
     public void NeContientPasLeDepart() {
-        var gps = new Gps(new Plateau());
         var destinationsPossibles = gps.DestinationsDepuis(4, 0);
 
         CollectionAssert.DoesNotContain(
@@ -38,7 +51,6 @@ public class GpsTest {
 
     [Test]
     public void NePassePasATraversUnPion() {
-        var gps = new Gps(new Plateau());
         var destinationsPossibles = gps.DestinationsDepuis(0, 2);
 
         CollectionAssert.DoesNotContain(
