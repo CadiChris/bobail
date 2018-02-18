@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Trou : MonoBehaviour {
 
 	public int X;
 	public int Y;
+    public Light lumiere;
 
 	Jeu jeu;
     Material mat;
-    Color couleurEteint;
     bool estAllume;
 
 	void Start () {
@@ -35,14 +34,13 @@ public class Trou : MonoBehaviour {
 	}
 
     void Allumer() {
-        mat.DOColor(new Color(50, 50, 50, 50), "_EmissionColor", .5f)
-           .SetEase(Ease.InSine);
+        lumiere.enabled = true;
         estAllume = true;
+
     }
 
     void Eteindre() {
-        mat.DOColor(couleurEteint, "_EmissionColor", .5f)
-           .SetEase(Ease.InSine);
+        lumiere.enabled = false;
         estAllume = false;
     }
 }

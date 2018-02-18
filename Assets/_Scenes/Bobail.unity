@@ -993,6 +993,10 @@ Prefab:
       propertyPath: Pion
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1040222671962212, guid: 1b73c0c37122f477382abcb0bfd7332f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b73c0c37122f477382abcb0bfd7332f, type: 2}
   m_IsPrefabParent: 0
