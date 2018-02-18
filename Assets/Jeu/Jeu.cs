@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Jeu : MonoBehaviour {
 
@@ -65,7 +66,20 @@ public class Jeu : MonoBehaviour {
 		plateau.Deplacer (PionCourant.X, PionCourant.Y, destination.X, destination.Y);
 		PionCourant.DeplacerVers (destination);
 		PionCourant = null;
-		TourSuivant ();
+		if (plateau.Vainqueur () != Pion.Vide)
+			GameOver (plateau.Vainqueur ());
+		else
+			TourSuivant ();
+	}
+
+	void GameOver(Pion vainqueur) {
+		StartCoroutine (NouvellePartie ());
+	}
+	IEnumerator NouvellePartie() {
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Bobail");
+
+		while (!asyncLoad.isDone)
+			yield return null;
 	}
 
 	public bool TrouEstOccupe(int x, int y) {
@@ -89,6 +103,10 @@ class Plateau {
 	public void Deplacer(int xDepart, int yDepart, int xArrivee, int yArrivee) {
 		plateau [yArrivee, xArrivee] = plateau [yDepart, xDepart];
 		plateau [yDepart, xDepart] = Pion.Vide;
+	}
+
+	public Pion Vainqueur() {
+		return Pion.Vide;
 	}
 }
 
