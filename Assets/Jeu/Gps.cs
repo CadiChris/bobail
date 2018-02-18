@@ -17,7 +17,12 @@ public class Gps {
         var destinations = new List<Coordonnees>{
             VersLeHaut(x, y),
             VersLeBas(x, y),
-            VersLaGauche(x, y)
+            VersLaGauche(x, y),
+            VersLaDroite(x, y),
+            HautGauche(x, y),
+            HautDroite(x, y),
+            BasGauche(x, y),
+            BasDroite(x, y)
         };
 
         var depart = new Coordonnees { X = x, Y = y };
@@ -33,7 +38,6 @@ public class Gps {
             if (peutAvancer) xArrivee = x;
             else if (x != xDepart) break;
         }
-
         return new Coordonnees { X = xArrivee, Y = yDepart };
     }
 
@@ -55,6 +59,75 @@ public class Gps {
             else if (y != yDepart) break;
         }
         return new Coordonnees { X = xDepart, Y = yArrivee };
+    }
+
+    public Coordonnees VersLaDroite(int xDepart, int yDepart) {
+        int yArrivee = yDepart;
+        for (int y = yDepart; y < 5; y++) {
+            var peutAvancer = _plateau.PionSur(xDepart, y) == Pion.Vide;
+            if (peutAvancer) yArrivee = y;
+            else if (y != yDepart) break;
+        }
+        return new Coordonnees { X = xDepart, Y = yArrivee };
+    }
+
+    public Coordonnees HautGauche(int xDepart, int yDepart) {
+        var xArrivee = xDepart;
+        int yArrivee = yDepart;
+        for (int x = xDepart, y = yDepart; x < 5 && y >= 0; x++, y--) {
+            var peutAvancer = _plateau.PionSur(x, y) == Pion.Vide;
+            if (peutAvancer) {
+                xArrivee = x;
+                yArrivee = y;
+            }
+            else if (y != yDepart) break;
+        }
+        return new Coordonnees { X = xArrivee, Y = yArrivee };
+    }
+
+    public Coordonnees HautDroite(int xDepart, int yDepart) {
+        var xArrivee = xDepart;
+        int yArrivee = yDepart;
+        for (int x = xDepart, y = yDepart; x < 5 && y < 5; x++, y++) {
+            var peutAvancer = _plateau.PionSur(x, y) == Pion.Vide;
+            if (peutAvancer) {
+                xArrivee = x;
+                yArrivee = y;
+            }
+            else if (y != yDepart) break;
+        }
+        return new Coordonnees { X = xArrivee, Y = yArrivee };
+    }
+
+    public Coordonnees BasGauche(int xDepart, int yDepart) {
+        var xArrivee = xDepart;
+        int yArrivee = yDepart;
+        for (int x = xDepart, y = yDepart; x >=0 && y >= 0; x--, y--) {
+            var peutAvancer = _plateau.PionSur(x, y) == Pion.Vide;
+            if (peutAvancer)
+            {
+                xArrivee = x;
+                yArrivee = y;
+            }
+            else if (y != yDepart) break;
+        }
+
+        return new Coordonnees { X = xArrivee, Y = yArrivee };
+    }
+
+    public Coordonnees BasDroite(int xDepart, int yDepart) {
+        var xArrivee = xDepart;
+        int yArrivee = yDepart;
+        for (int x = xDepart, y = yDepart; x >= 0 && y < 5; x--, y++) {
+            var peutAvancer = _plateau.PionSur(x, y) == Pion.Vide;
+            if (peutAvancer) {
+                xArrivee = x;
+                yArrivee = y;
+            }
+            else if (y != yDepart) break;
+        }
+
+        return new Coordonnees { X = xArrivee, Y = yArrivee };
     }
 }
 

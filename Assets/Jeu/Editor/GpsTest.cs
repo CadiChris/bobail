@@ -23,6 +23,11 @@ public class GpsTest {
                 new Coordonnees { X = 3, Y = 2 },
                 new Coordonnees { X = 1, Y = 2 },
                 new Coordonnees { X = 2, Y = 0 },
+                new Coordonnees { X = 2, Y = 4 },
+                new Coordonnees { X = 3, Y = 1 },
+                new Coordonnees { X = 3, Y = 3 },
+                new Coordonnees { X = 1, Y = 1 },
+                new Coordonnees { X = 1, Y = 3 },
             },
             destinationsPossibles
         );
